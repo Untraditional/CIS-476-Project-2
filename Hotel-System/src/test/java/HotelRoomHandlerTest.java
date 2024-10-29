@@ -64,4 +64,18 @@ public class HotelRoomHandlerTest {
         String result = suiteHandler.handleRequest(request);
         assertEquals("All rooms are sold out" , result);
     }
+
+    // Test for not meeting the minimum cost of a standard room of $80.0
+    @Test
+    void testBidRejected(){
+        Bids request = new Bids(50.0);
+        String result = suiteHandler.handleRequest(request);
+        assertEquals("Bid too low for a Standard Room at $" + request.getBidAmount(), result);
+    }
+
+    // Need a test for when Suites are sold out and the user ends up with a deluxe room for the price of a suite
+
+    // Need a test for when the suite is sold out and the deluxe rooms are sold out, the user ends up with a standard room for suite price
+
+    // Need a test for when deluxe is sold out and the user ends up paying deluxe price for a standard room
 }
