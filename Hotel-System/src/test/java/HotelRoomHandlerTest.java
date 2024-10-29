@@ -52,4 +52,16 @@ public class HotelRoomHandlerTest {
         String result = standardHandler.handleRequest(request);
         assertEquals("Bid accepted for a Standard Room at $" + request.getBidAmount(), result);
     }
+
+    // Test for all rooms are sold out
+    @Test
+    void testAllRoomsSoldOut(){
+        HotelRooms.getRoomsAvailable()[HotelRooms.SUITE_ROOM_INDEX] = 0;
+        HotelRooms.getRoomsAvailable()[HotelRooms.DELUXE_ROOM_INDEX] = 0;
+        HotelRooms.getRoomsAvailable()[HotelRooms.STANDARD_ROOM_INDEX] = 0;
+
+        Bids request = new Bids(300.0);
+        String result = suiteHandler.handleRequest(request);
+        assertEquals("All rooms are sold out" , result);
+    }
 }
