@@ -59,4 +59,4 @@ jobs:
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@v4.0.0
       with:
-        gradle-project-directory: Hotel-System
+        build-root-directory: Hotel-System
