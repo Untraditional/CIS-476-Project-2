@@ -94,14 +94,31 @@ public class HotelRoomHandlerTest {
         assertEquals("Bid accepted for a Standard Room at $" + request.getBidAmount(), result);
     }
 
-    // Need a test for when deluxe is sold out and the user ends up paying deluxe price for a standard room
-//    @Test
-//    void testDeluxeSoldOutBuyingStandardRoomAtDeluxePrice(){
-//        HotelRooms.getRoomsAvailable()[HotelRooms.DELUXE_ROOM_INDEX] = 0;
-//
-//        Bids request = new Bids(200.0);
-//        String result = suiteHandler.handleRequest(request);
-//        assertEquals("Bid accepted for a Standard Room at $" + request.getBidAmount(), result);
-//    }
+    // Testing if Deluxe is sold out, but suite isn't yet. So in theory they shouldn't be able to buy one for $200.00
+    // In the Word document: Standard room accepts price ranges $80 - $150 or above $150 when Deluxe and Suite are both sold out
+    @Test
+    void testDeluxeSoldOutButSuiteIsNotSoldOutBuyingStandardRoomAtDeluxePrice(){
+        HotelRooms.getRoomsAvailable()[HotelRooms.DELUXE_ROOM_INDEX] = 0;
 
+        Bids request = new Bids(200.0);
+        String result = suiteHandler.handleRequest(request);
+        assertEquals("All rooms are sold out", result);
+    }
+
+    // Testing for purchasing 11 suites at $300.0 each, where the 11th purchase will be a Deluxe room
+    @Test
+    void testEleventhSuiteBidGoesToDeluxeRoom(){
+        Bids request = new Bids(300.0);
+        String result = "";
+
+        // loop for buying 10 suites
+        for (int i = 0; i < 10; i++){
+            result = suiteHandler.handleRequest(request);
+            assertEquals("Bid accepted for Suite Room at $" + request.getBidAmount(), result);
+        }
+
+        // 11th bid should be a deluxe room as suites are sold out
+        result = suiteHandler.handleRequest(request);
+        assertEquals("Bid accepted for a Deluxe Room at $" + request.getBidAmount(), result);
+    }
 }
