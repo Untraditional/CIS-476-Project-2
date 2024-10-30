@@ -11,7 +11,7 @@ public class StandardHandler extends abstractRoomHandler{
     public String handleRequest(Bids request) {
         if (!HotelRooms.isSoldOut(STANDARD_ROOM_INDEX) &&
                 ((request.getBidAmount() >= HotelRooms.STANDARD_ROOM_MIN_BID && request.getBidAmount() < HotelRooms.DELUXE_ROOM_MIN_BID) ||
-                        (request.getBidAmount() >= HotelRooms.DELUXE_ROOM_MIN_BID && HotelRooms.isSoldOut(DELUXE_ROOM_INDEX) && HotelRooms.isSoldOut(STANDARD_ROOM_INDEX)))) {
+                        (request.getBidAmount() >= HotelRooms.DELUXE_ROOM_MIN_BID && HotelRooms.isSoldOut(DELUXE_ROOM_INDEX) && HotelRooms.isSoldOut(SUITE_ROOM_INDEX)))) {
 
             HotelRooms.decrementRoom(STANDARD_ROOM_INDEX);
             return "Bid accepted for a Standard Room at $" + request.getBidAmount();
