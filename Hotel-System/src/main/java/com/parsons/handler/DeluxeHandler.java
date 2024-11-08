@@ -14,7 +14,7 @@ public class DeluxeHandler extends abstractRoomHandler {
                 (request.getBidAmount() >= SUITE_ROOM_MIN_BID && HotelRooms.isSoldOut(SUITE_ROOM_INDEX)))) {
 
             HotelRooms.decrementRoom(DELUXE_ROOM_INDEX);
-            return "Bid accepted for a Deluxe Room at $" + request.getBidAmount();
+            return String.format("Bid accepted for a Deluxe Room at $%.2f", request.getBidAmount());
         } else if (nextHandler != null) {
             return nextHandler.handleRequest(request);
         } else {

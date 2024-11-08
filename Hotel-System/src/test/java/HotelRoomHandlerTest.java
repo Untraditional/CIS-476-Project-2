@@ -32,25 +32,25 @@ public class HotelRoomHandlerTest {
     // Testing if Suite handler is accepting bids
     @Test
     void testSuiteRoomAccepted(){
-        Bids request = new Bids(300.0);
+        Bids request = new Bids(300.00);
         String result = suiteHandler.handleRequest(request);
-        assertEquals("Bid accepted for Suite Room at $" + request.getBidAmount(), result);
+        assertEquals(String.format("Bid accepted for Suite Room at $%.2f", request.getBidAmount()), result);
     }
 
     // Testing if Deluxe handler is accepting bids
     @Test
     void testDeluxeRoomAccepted(){
-        Bids request = new Bids(200.0);
+        Bids request = new Bids(200.00);
         String result = suiteHandler.handleRequest(request);
-        assertEquals("Bid accepted for a Deluxe Room at $" + request.getBidAmount(), result);
+        assertEquals(String.format("Bid accepted for a Deluxe Room at $%.2f", request.getBidAmount()), result);
     }
 
     // Testing if standard room handler is accepting bids
     @Test
     void testStandardRoomAccepted(){
-        Bids request = new Bids(100.0);
+        Bids request = new Bids(100.00);
         String result = suiteHandler.handleRequest(request);
-        assertEquals("Bid accepted for a Standard Room at $" + request.getBidAmount(), result);
+        assertEquals(String.format("Bid accepted for a Standard Room at $%.2f", request.getBidAmount()), result);
     }
 
     // Test for all rooms are sold out
@@ -60,7 +60,7 @@ public class HotelRoomHandlerTest {
         HotelRooms.getRoomsAvailable()[HotelRooms.DELUXE_ROOM_INDEX] = 0;
         HotelRooms.getRoomsAvailable()[HotelRooms.STANDARD_ROOM_INDEX] = 0;
 
-        Bids request = new Bids(300.0);
+        Bids request = new Bids(300.00);
         String result = suiteHandler.handleRequest(request);
         assertEquals("All rooms are sold out" , result);
     }
@@ -68,9 +68,9 @@ public class HotelRoomHandlerTest {
     // Test for not meeting the minimum cost of a standard room of $80.0
     @Test
     void testBidRejected(){
-        Bids request = new Bids(50.0);
+        Bids request = new Bids(50.00);
         String result = suiteHandler.handleRequest(request);
-        assertEquals("Bid too low for a Standard Room at $" + request.getBidAmount(), result);
+        assertEquals(String.format("Bid too low for a Standard Room at $%.2f", request.getBidAmount()), result);
     }
 
     // Need a test for when Suites are sold out and the user ends up with a deluxe room for the price of a suite
@@ -78,9 +78,9 @@ public class HotelRoomHandlerTest {
     void testSuitesSoldOutBookingDeluxeAtSuitePrice(){
         HotelRooms.getRoomsAvailable()[HotelRooms.SUITE_ROOM_INDEX] = 0;
 
-        Bids request = new Bids(300.0);
+        Bids request = new Bids(300.00);
         String result = suiteHandler.handleRequest(request);
-        assertEquals("Bid accepted for a Deluxe Room at $" + request.getBidAmount(), result);
+        assertEquals(String.format("Bid accepted for a Deluxe Room at $%.2f", request.getBidAmount()), result);
     }
 
     // Need a test for when the suite is sold out and the deluxe rooms are sold out, the user ends up with a standard room for suite price
@@ -89,9 +89,9 @@ public class HotelRoomHandlerTest {
         HotelRooms.getRoomsAvailable()[HotelRooms.SUITE_ROOM_INDEX] = 0;
         HotelRooms.getRoomsAvailable()[HotelRooms.DELUXE_ROOM_INDEX] = 0;
 
-        Bids request = new Bids(300.0);
+        Bids request = new Bids(300.00);
         String result = suiteHandler.handleRequest(request);
-        assertEquals("Bid accepted for a Standard Room at $" + request.getBidAmount(), result);
+        assertEquals(String.format("Bid accepted for a Standard Room at $%.2f", request.getBidAmount()), result);
     }
 
     // Testing if Deluxe is sold out, but suite isn't yet. So in theory they shouldn't be able to buy one for $200.00
@@ -100,7 +100,7 @@ public class HotelRoomHandlerTest {
     void testDeluxeSoldOutButSuiteIsNotSoldOutBuyingStandardRoomAtDeluxePrice(){
         HotelRooms.getRoomsAvailable()[HotelRooms.DELUXE_ROOM_INDEX] = 0;
 
-        Bids request = new Bids(200.0);
+        Bids request = new Bids(200.00);
         String result = suiteHandler.handleRequest(request);
         assertEquals("All rooms are sold out", result);
     }
@@ -108,17 +108,17 @@ public class HotelRoomHandlerTest {
     // Testing for purchasing 11 suites at $300.0 each, where the 11th purchase will be a Deluxe room
     @Test
     void testEleventhSuiteBidGoesToDeluxeRoom(){
-        Bids request = new Bids(300.0);
+        Bids request = new Bids(300.00);
         String result = "";
 
         // loop for buying 10 suites
         for (int i = 0; i < 10; i++){
             result = suiteHandler.handleRequest(request);
-            assertEquals("Bid accepted for Suite Room at $" + request.getBidAmount(), result);
+            assertEquals(String.format("Bid accepted for Suite Room at $%.2f", request.getBidAmount()), result);
         }
 
         // 11th bid should be a deluxe room as suites are sold out
         result = suiteHandler.handleRequest(request);
-        assertEquals("Bid accepted for a Deluxe Room at $" + request.getBidAmount(), result);
+        assertEquals(String.format("Bid accepted for a Deluxe Room at $%.2f", request.getBidAmount()), result);
     }
 }

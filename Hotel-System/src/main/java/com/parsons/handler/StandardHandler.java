@@ -14,9 +14,9 @@ public class StandardHandler extends abstractRoomHandler{
                 (request.getBidAmount() >= DELUXE_ROOM_MIN_BID && HotelRooms.isSoldOut(DELUXE_ROOM_INDEX) && HotelRooms.isSoldOut(SUITE_ROOM_INDEX)))
         ) {
             HotelRooms.decrementRoom(STANDARD_ROOM_INDEX);
-            return "Bid accepted for a Standard Room at $" + request.getBidAmount();
+            return String.format("Bid accepted for a Standard Room at $%.2f", request.getBidAmount());
         } else if (request.getBidAmount() < STANDARD_ROOM_MIN_BID){
-            return "Bid too low for a Standard Room at $" + request.getBidAmount();
+            return String.format("Bid too low for a Standard Room at $%.2f", request.getBidAmount());
         } else {
             return "All rooms are sold out";
         }
