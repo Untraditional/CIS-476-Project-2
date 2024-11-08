@@ -31,14 +31,6 @@ A Java application that simulates a hotel room bidding system using the **Chain 
 - **Deluxe**: Accepts bids of $150 - $280 or above $280 when Suites are sold out.
 - **Standard**: Accepts bids of $80 - $150 or above $150 when Deluxe and Suite rooms are sold out.
 
-## Testing
-
-The project includes JUnit tests to verify the core functionality of the bidding system. To run all tests:
-
-```bash
-./gradlew test
-```
-
 ### Test Coverage
 
 - **Room Type Handlers**: Ensures each room handler processes bids correctly and passes requests down the chain when appropriate.
