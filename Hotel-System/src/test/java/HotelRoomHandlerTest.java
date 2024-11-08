@@ -41,7 +41,7 @@ public class HotelRoomHandlerTest {
     @Test
     void testDeluxeRoomAccepted(){
         Bids request = new Bids(200.0);
-        String result = deluxeHandler.handleRequest(request);
+        String result = suiteHandler.handleRequest(request);
         assertEquals("Bid accepted for a Deluxe Room at $" + request.getBidAmount(), result);
     }
 
@@ -49,7 +49,7 @@ public class HotelRoomHandlerTest {
     @Test
     void testStandardRoomAccepted(){
         Bids request = new Bids(100.0);
-        String result = standardHandler.handleRequest(request);
+        String result = suiteHandler.handleRequest(request);
         assertEquals("Bid accepted for a Standard Room at $" + request.getBidAmount(), result);
     }
 
